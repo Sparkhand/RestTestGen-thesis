@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{API_NAME}} | {{TESTING_SESSION_ID}} | RestTestGen Coverage Report</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+                'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            padding: 20px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        header {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2e7d32;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .report-title {
+            font-size: 1.8rem;
+            color: #2e7d32;
+            margin: 0 0 15px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .report-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            margin-right: 10px;
+        }
+
+        .info-value {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #2e7d32;
+            font-weight: 500;
+        }
+
+        .content {
+            column-count: 2;
+            column-gap: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .content {
+                column-count: 1;
+            }
+        }
+
+        .card {
+            break-inside: avoid;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-top-right-label {
+            align-self: flex-start;
+            margin: 0;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: #2e7d32;
+            color: white;
+            border-radius: 0 0 8px 0;
+        }
+
+        .card-content {
+            padding: 24px;
+            overflow: auto;
+        }
+
+        #chart-container {
+            padding: 20px;
+            height: 350px;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* HTTP Method styles */
+        .http-method {
+            font-weight: bold;
+            border-radius: 4px;
+            padding: 3px 8px;
+            color: white;
+            display: inline-block;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .get {
+            background-color: #4caf50;
+        }
+
+        .post {
+            background-color: #2196f3;
+        }
+
+        .put {
+            background-color: #ff9800;
+        }
+
+        .delete {
+            background-color: #f44336;
+        }
+
+        .patch {
+            background-color: #9c27b0;
+        }
+
+        .api-path {
+            color: #3b4151;
+            font-family: monospace;
+            margin-left: 6px;
+        }
+
+        /* Status indicators */
+        .icon {
+            text-align: center;
+            width: 60px;
+            padding: 8px;
+        }
+
+        /* Accordion styles */
+        .accordion-section {
+            margin-bottom: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 12px 16px;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background-color: #e9e9e9;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 16px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Status code grid */
+        .status-code-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .status-code-item {
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .status-code-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Parameter styles */
+        .param-item {
+            padding: 12px 15px 12px 30px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.2s;
+        }
+
+        .param-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .values-list {
+            padding: 12px 12px 12px 50px;
+            background-color: #f9f9f9;
+            border-radius: 0 0 8px 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <h1 class="report-title">RestTestGen Coverage Report</h1>
+            <div class="report-info">
+                <div class="info-item">
+                    <span class="info-label">API:</span>
+                    <span class="info-value">{{API_NAME}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Session ID:</span>
+                    <span class="info-value">{{TESTING_SESSION_ID}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Timestamp:</span>
+                    <span class="info-value">{{TIMESTAMP}}</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="card chart">
+            <h2 class="card-top-right-label">
+                Coverage Breakdown
+            </h2>
+        </div>
+        <div class="card" id="operationcoverage">
+            <h2 class="card-top-right-label">
+                Operation Coverage
+            </h2>
+            <div class="card-content">
+
+            </div>
+        </div>
+        <div class="card" id="parametercoverage">
+            <h2 class="card-top-right-label">
+                Parameter Coverage
+            </h2>
+            <div class="card-content">
+
+            </div>
+        </div>
+        <div class="card" id="parametervaluecoverage">
+            <h2 class="card-top-right-label">
+                Parameter Value Coverage
+            </h2>
+            <div class="card-content">
+            </div>
+        </div>
+
+        <div class="card" id="pathcoverage">
+            <h2 class="card-top-right-label">
+                Path Coverage
+            </h2>
+            <div class="card-content">
+
+            </div>
+        </div>
+
+        <div class="card" id="statuscodecoverage">
+            <h2 class="card-top-right-label">
+                Status Code Coverage
+            </h2>
+            <div class="card-content">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ------------- CONSTANTS ------------- */
+
+        const COVERAGE_CATEGORIES = ['documented', 'documentedTested', 'notDocumentedTested', 'notTested'];
+        const PARAMETER_CATEGORIES = ['documented', 'documentedTested', 'notDocumentedTested'];
+        const DOCUMENTED_CATEGORIES = ['documented', 'documentedTested'];
+        const TESTED_CATEGORIES = ['documentedTested', 'notDocumentedTested'];
+
+        const NO_DATA_STYLES = {
+            padding: '20px',
+            textAlign: 'center',
+            color: '#666',
+            fontStyle: 'italic',
+            border: '1px dashed #ccc',
+            borderRadius: '8px',
+            margin: '10px'
+        };
+
+        const icons = {
+            'documented': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m1.354 4.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708.708"/></svg>',
+            'notDocumented': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M6.854 7.146 8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 1 1 .708-.708"/></svg>',
+            'tested': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>',
+            'notTested': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0-.708-.708L8 7.293z"/></svg>'
+        }
+
+        const jsonData = {
+            //{{JSONDATA}}
+        }
+
+        /* ------------- UTILITY FUNCTIONS ------------- */
+
+        function checkEmptyData(data) {
+            return COVERAGE_CATEGORIES.every(category => Object.keys(data[category]).length === 0);
+        }
+
+        function applyStyles(element, styles) {
+            Object.assign(element.style, styles);
+        }
+
+        function createElement(tag, props = {}, styles = {}, children = []) {
+            const el = document.createElement(tag);
+            Object.assign(el, props);
+            applyStyles(el, styles);
+            children.forEach(child => el.appendChild(child));
+            return el;
+        }
+
+        function addNoDataAvailableDiv(container, scope = '') {
+            const noDataIcon = createElement('div', {
+                innerHTML: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>`,
+            }, { marginBottom: '10px' });
+
+            const noDataText = createElement('p', {
+                textContent: `No ${scope} data available`
+            }, { margin: '0' });
+
+            const noDataDiv = createElement('div', {}, NO_DATA_STYLES, [noDataIcon, noDataText]);
+            container.appendChild(noDataDiv);
+        }
+
+        /* ------------- UI COMPONENT FUNCTIONS ------------- */
+
+        function createStatusIndicator(isActive, type) {
+            const className = isActive ? type : `not${type[0].toUpperCase()}${type.slice(1)}`;
+            const element = document.createElement('td');
+            element.innerHTML = icons[className];
+            element.style.color = isActive ? '#2e7d32' : '#d32f2f';
+            element.classList.add('icon', className);
+            return element;
+        }
+
+        const renderDocumentedIcon = documented => createStatusIndicator(documented, 'documented');
+        const renderTestedIcon = tested => createStatusIndicator(tested, 'tested');
+
+        function createTableHeader(headers) {
+            const row = headers.map(headerText => createElement('th', {
+                textContent: headerText
+            }, {
+                padding: '12px',
+                backgroundColor: '#f5f5f5',
+                borderBottom: '2px solid #ddd',
+                textAlign: 'left'
+            }));
+
+            return createElement('thead', {}, {}, [createElement('tr', {}, {}, row)]);
+        }
+
+        function createStyledTable(headers) {
+            const table = document.createElement('table');
+            applyStyles(table, {
+                width: '100%',
+                borderCollapse: 'collapse'
+            });
+            table.appendChild(createTableHeader(headers));
+            return table;
+        }
+
+        function createHttpMethodDisplay(method, path) {
+            const methodSpan = createElement('span', {
+                textContent: method,
+                className: `http-method ${method.toLowerCase()}`
+            });
+
+            const pathSpan = createElement('span', {
+                textContent: path,
+                className: 'api-path'
+            });
+
+            return createElement('div', {}, {}, [methodSpan, document.createTextNode(' '), pathSpan]);
+        }
+
+        function createAccordionSection(title, countText) {
+            const titleNode = typeof title === 'string' ? document.createTextNode(title) : title;
+
+            const headerChildren = [titleNode];
+            if (countText) {
+                const count = createElement('span', {
+                    textContent: countText
+                }, {
+                    fontSize: '0.9em',
+                    color: '#666',
+                    backgroundColor: '#e0e0e0',
+                    padding: '4px 8px',
+                    borderRadius: '12px'
+                });
+                headerChildren.push(count);
+            }
+
+            const header = createElement('div', {
+                className: 'accordion-header'
+            }, {
+                padding: '12px 16px',
+                backgroundColor: '#f5f5f5',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+            }, headerChildren);
+
+            const content = createElement('div', {
+                className: 'accordion-content'
+            }, {
+                display: 'none',
+                padding: '16px',
+                borderTop: '1px solid #e0e0e0'
+            });
+
+            const section = createElement('div', {
+                className: 'accordion-section'
+            }, {
+                marginBottom: '12px',
+                border: '1px solid #e0e0e0',
+                borderRadius: '8px',
+                overflow: 'hidden'
+            }, [header, content]);
+
+            header.addEventListener('click', () => {
+                content.style.display = content.style.display === 'none' ? 'block' : 'none';
+            });
+
+            return { section, header, content };
+        }
+
+        /* ------------- DATA PARSING FUNCTIONS ------------- */
+
+        function parseCoverage(data, isItemIncluded, getStatus) {
+            const items = {};
+            const allItems = new Set();
+
+            COVERAGE_CATEGORIES.forEach(category => {
+                const list = data[category];
+                if (Array.isArray(list)) list.forEach(item => allItems.add(item));
+            });
+
+            allItems.forEach(item => {
+                items[item] = getStatus(data, item);
+            });
+
+            return items;
+        }
+
+        function parseOperationCoverage(data) {
+            return parseCoverage(data, null, (data, op) => ({
+                isDocumented: data.documented.includes(op) || data.documentedTested.includes(op),
+                isTested: data.documentedTested.includes(op) || data.notDocumentedTested.includes(op)
+            }));
+        }
+
+        function parsePathCoverage(data) {
+            return parseCoverage(data, null, (data, path) => ({
+                isDocumented: data.documented.includes(path) || data.documentedTested.includes(path),
+                isTested: data.documentedTested.includes(path) || data.notDocumentedTested.includes(path)
+            }));
+        }
+
+        function parseParameterCoverage(data) {
+            const result = {};
+            const allOps = new Set();
+
+            PARAMETER_CATEGORIES.forEach(category => {
+                Object.keys(data[category]).forEach(op => allOps.add(op));
+            });
+
+            allOps.forEach(operation => {
+                const params = [];
+                const doc = data.documented[operation] || [];
+                const docTested = data.documentedTested[operation] || [];
+                const notDocTested = data.notDocumentedTested[operation] || [];
+
+                doc.forEach(param => {
+                    params.push({
+                        name: param,
+                        isDocumented: true,
+                        isTested: docTested.includes(param)
+                    });
+                });
+
+                notDocTested.forEach(param => {
+                    if (!doc.includes(param)) {
+                        params.push({
+                            name: param,
+                            isDocumented: false,
+                            isTested: true
+                        });
+                    }
+                });
+
+                result[operation] = params;
+            });
+
+            return result;
+        }
+
+        function parseParameterValueCoverage(data) {
+            const result = {};
+
+            PARAMETER_CATEGORIES.forEach(category => {
+                for (const [operation, params] of Object.entries(data[category])) {
+                    if (!result[operation]) result[operation] = {};
+
+                    for (const [param, values] of Object.entries(params)) {
+                        if (!result[operation][param]) {
+                            result[operation][param] = {
+                                values: [],
+                                documented: [],
+                                tested: []
+                            };
+                        }
+
+                        values.forEach(value => {
+                            const entry = result[operation][param];
+                            if (!entry.values.includes(value)) entry.values.push(value);
+                            if (DOCUMENTED_CATEGORIES.includes(category) && !entry.documented.includes(value)) {
+                                entry.documented.push(value);
+                            }
+                            if (TESTED_CATEGORIES.includes(category) && !entry.tested.includes(value)) {
+                                entry.tested.push(value);
+                            }
+                        });
+                    }
+                }
+            });
+
+            return result;
+        }
+
+        function parseStatusCodeCoverage(data) {
+            const result = {};
+            const allOps = new Set();
+
+            COVERAGE_CATEGORIES.forEach(category => {
+                Object.keys(data[category]).forEach(op => allOps.add(op));
+            });
+
+            allOps.forEach(operation => {
+                result[operation] = {};
+                const codes = new Set();
+
+                COVERAGE_CATEGORIES.forEach(category => {
+                    (data[category][operation] || []).forEach(code => codes.add(code));
+                });
+
+                codes.forEach(code => {
+                    result[operation][code] = {
+                        isDocumented: (data.documented[operation]?.includes(code) || data.documentedTested[operation]?.includes(code)),
+                        isTested: (data.documentedTested[operation]?.includes(code) || data.notDocumentedTested[operation]?.includes(code))
+                    };
+                });
+            });
+
+            return result;
+        }
+
+        /* ------------- COVERAGE STATS FUNCTION ------------- */
+
+        function addDetailedCoverageStats() {
+            const { CoverageStats } = jsonData;
+            const chartContainer = document.querySelector('.chart');
+            const statsContainer = createStatsContainer();
+
+            const legendItems = [
+                { color: '#4caf50', label: 'Documented & Tested' },
+                { color: '#ffb74d', label: 'Not Documented but Tested' },
+                { color: '#90caf9', label: 'Documented but Not Tested' },
+                { color: '#e0e0e0', label: 'Not Covered' }
+            ];
+
+            statsContainer.appendChild(createLegend(legendItems));
+
+            const coverageTypes = [
+                { name: 'Operation', data: CoverageStats.OperationCoverage },
+                { name: 'Parameter', data: CoverageStats.ParameterCoverage },
+                { name: 'Parameter Value', data: CoverageStats.ParameterValueCoverage },
+                { name: 'Path', data: CoverageStats.PathCoverage },
+                { name: 'Status Code', data: CoverageStats.StatusCodeCoverage }
+            ];
+
+            const tooltip = createTooltip();
+
+            coverageTypes.forEach(type => {
+                const stats = extractStats(type.data);
+                const bar = createCoverageBar(type.name, stats, tooltip);
+                statsContainer.appendChild(bar);
+            });
+
+            chartContainer.appendChild(statsContainer);
+        }
+
+        /* ---------- ELEMENT CREATION HELPERS ---------- */
+
+        function createStatsContainer() {
+            const container = document.createElement('div');
+            Object.assign(container.style, {
+                marginTop: '30px',
+                padding: '15px',
+                backgroundColor: 'white',
+                borderRadius: '8px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+            });
+            container.className = 'coverage-stats-details';
+            return container;
+        }
+
+        function createLegend(items) {
+            const legend = document.createElement('div');
+            Object.assign(legend.style, {
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '12px',
+                marginBottom: '15px'
+            });
+
+            items.forEach(({ color, label }) => {
+                const item = document.createElement('div');
+                item.style.display = 'flex';
+                item.style.alignItems = 'center';
+                item.style.gap = '5px';
+
+                const box = document.createElement('div');
+                box.style.width = '14px';
+                box.style.height = '14px';
+                box.style.backgroundColor = color;
+                box.style.borderRadius = '3px';
+
+                const text = document.createElement('span');
+                text.textContent = label;
+                text.style.fontSize = '0.8rem';
+                text.style.color = '#616161';
+
+                item.appendChild(box);
+                item.appendChild(text);
+                legend.appendChild(item);
+            });
+
+            return legend;
+        }
+
+        function createTooltip() {
+            const tooltip = document.createElement('div');
+            Object.assign(tooltip.style, {
+                position: 'absolute',
+                display: 'none',
+                backgroundColor: 'rgba(33, 33, 33, 0.9)',
+                color: 'white',
+                padding: '8px 12px',
+                borderRadius: '4px',
+                fontSize: '0.8rem',
+                zIndex: 10,
+                pointerEvents: 'none',
+                whiteSpace: 'nowrap',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                transform: 'translateY(-100%)',
+                marginTop: '-8px'
+            });
+            document.body.appendChild(tooltip);
+            return tooltip;
+        }
+
+        /* ---------- LOGIC HELPERS ---------- */
+
+        function extractStats(data) {
+            const raw = data.raw;
+            const rate = parseFloat(data.rate).toFixed(1);
+
+            const documentedTested = raw.documentedTested || 0;
+            const notDocumentedTested = raw.notDocumentedTested || 0;
+            const documentedOnly = (raw.documented || 0) - documentedTested;
+
+            let total = raw.total || (
+                raw.notTested != null
+                    ? documentedOnly + documentedTested + notDocumentedTested + raw.notTested
+                    : Math.round((documentedTested + notDocumentedTested) * 100 / parseFloat(data.rate) || 1)
+            );
+
+            const tested = documentedTested + notDocumentedTested;
+            const notCovered = total - documentedOnly - documentedTested - notDocumentedTested;
+
+            const percentages = {
+                documentedTested: (documentedTested / total) * 100,
+                notDocumentedTested: (notDocumentedTested / total) * 100,
+                documentedOnly: (documentedOnly / total) * 100,
+                notCovered: (notCovered / total) * 100
+            };
+
+            return {
+                rate,
+                total,
+                tested,
+                documentedTested,
+                notDocumentedTested,
+                documentedOnly,
+                notCovered,
+                percentages
+            };
+        }
+
+        /* ---------- BAR CREATION ---------- */
+
+        function createCoverageBar(title, stats, tooltip) {
+            const barItem = document.createElement('div');
+            barItem.style.marginBottom = '18px';
+
+            const barHeader = document.createElement('div');
+            barHeader.style.display = 'flex';
+            barHeader.style.justifyContent = 'space-between';
+            barHeader.style.marginBottom = '6px';
+
+            const name = document.createElement('div');
+            name.textContent = title;
+            name.style.fontWeight = '500';
+            name.style.fontSize = '0.9rem';
+
+            const rate = document.createElement('div');
+            rate.textContent = `${stats.rate}%`;
+            rate.style.fontWeight = 'bold';
+            rate.style.color = '#2e7d32';
+
+            barHeader.appendChild(name);
+            barHeader.appendChild(rate);
+            barItem.appendChild(barHeader);
+
+            const progressBar = createProgressBar(stats, tooltip);
+            barItem.appendChild(progressBar);
+
+            const statsLine = document.createElement('div');
+            statsLine.style.display = 'flex';
+            statsLine.style.justifyContent = 'space-between';
+            statsLine.style.marginTop = '6px';
+            statsLine.style.fontSize = '0.8rem';
+            statsLine.style.color = '#616161';
+
+            statsLine.innerHTML = `
+        <div>Total: ${stats.total} items</div>
+        <div>Tested: ${stats.tested} items</div>
+    `;
+            barItem.appendChild(statsLine);
+
+            return barItem;
+        }
+
+        function createProgressBar(stats, tooltip) {
+            const container = document.createElement('div');
+            Object.assign(container.style, {
+                height: '16px',
+                backgroundColor: '#e0e0e0',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                display: 'flex',
+                position: 'relative'
+            });
+
+            const segments = [
+                { color: '#4caf50', value: stats.documentedTested, percent: stats.percentages.documentedTested, label: 'Documented & Tested' },
+                { color: '#ffb74d', value: stats.notDocumentedTested, percent: stats.percentages.notDocumentedTested, label: 'Not Documented but Tested' },
+                { color: '#90caf9', value: stats.documentedOnly, percent: stats.percentages.documentedOnly, label: 'Documented but Not Tested' },
+                { color: '#e0e0e0', value: stats.notCovered, percent: stats.percentages.notCovered, label: 'Not Covered' }
+            ];
+
+            segments.forEach(({ color, value, percent, label }) => {
+                if (percent > 0) {
+                    const segment = createBarSegment(color, percent, `${label}: ${value} (${percent.toFixed(1)}%)`, tooltip);
+                    container.appendChild(segment);
+                }
+            });
+
+            container.addEventListener('mouseenter', e => {
+                tooltip.innerHTML = `
+            <strong>${stats.rate}% Coverage</strong><br>
+            Documented & Tested: ${stats.documentedTested} (${stats.percentages.documentedTested.toFixed(1)}%)<br>
+            Not Documented but Tested: ${stats.notDocumentedTested} (${stats.percentages.notDocumentedTested.toFixed(1)}%)<br>
+            Documented but Not Tested: ${stats.documentedOnly} (${stats.percentages.documentedOnly.toFixed(1)}%)<br>
+            Not Covered: ${stats.notCovered} (${stats.percentages.notCovered.toFixed(1)}%)
+        `;
+                tooltip.style.display = 'block';
+                tooltip.style.left = `${e.clientX}px`;
+                tooltip.style.top = `${e.clientY}px`;
+            });
+
+            container.addEventListener('mousemove', e => {
+                tooltip.style.left = `${e.clientX}px`;
+                tooltip.style.top = `${e.clientY}px`;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+
+            return container;
+        }
+
+        function createBarSegment(color, percent, tooltipText, tooltip) {
+            const segment = document.createElement('div');
+            Object.assign(segment.style, {
+                height: '100%',
+                width: `${percent}%`,
+                backgroundColor: color,
+                transition: 'width 1s ease-in-out',
+                minWidth: percent > 0 ? '4px' : '0'
+            });
+
+            segment.addEventListener('mouseenter', e => {
+                tooltip.textContent = tooltipText;
+                tooltip.style.display = 'block';
+                tooltip.style.left = `${e.clientX}px`;
+                tooltip.style.top = `${e.clientY}px`;
+                segment.style.filter = 'brightness(1.1)';
+            });
+
+            segment.addEventListener('mousemove', e => {
+                tooltip.style.left = `${e.clientX}px`;
+                tooltip.style.top = `${e.clientY}px`;
+            });
+
+            segment.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+                segment.style.filter = 'none';
+            });
+
+            return segment;
+        }
+
+        /* ------------- COVERAGE RENDER FUNCTIONS ------------- */
+
+        function renderTableWithStatus(container, data, headers, extractRowInfoFn, emptyMessage) {
+            if (checkEmptyData(data)) {
+                addNoDataAvailableDiv(container, emptyMessage);
+                return;
+            }
+
+            const parsedData = extractRowInfoFn(data);
+            const keys = Object.keys(parsedData).sort();
+
+            if (keys.length === 0) {
+                addNoDataAvailableDiv(container, emptyMessage);
+                return;
+            }
+
+            const table = createStyledTable(headers);
+            const tbody = document.createElement('tbody');
+
+            keys.forEach(key => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid #eee';
+
+                const { labelCell, isDocumented, isTested } = parsedData[key];
+
+                row.appendChild(labelCell);
+                row.appendChild(renderDocumentedIcon(isDocumented));
+                row.appendChild(renderTestedIcon(isTested));
+                tbody.appendChild(row);
+            });
+
+            table.appendChild(tbody);
+            container.appendChild(table);
+        }
+
+        function populateOperationCoverage() {
+            const container = document.querySelector('#operationcoverage .card-content');
+            renderTableWithStatus(
+                container,
+                jsonData['OperationCoverage'],
+                ['Operation', 'Doc', 'Test'],
+                data => {
+                    const parsed = parseOperationCoverage(data);
+                    return Object.fromEntries(
+                        Object.entries(parsed).map(([operation, coverage]) => {
+                            const [method, path] = operation.split(' ');
+                            const labelCell = document.createElement('td');
+                            labelCell.appendChild(createHttpMethodDisplay(method, path));
+                            labelCell.style.padding = '10px 12px';
+                            return [operation, {
+                                labelCell,
+                                isDocumented: coverage.isDocumented,
+                                isTested: coverage.isTested
+                            }];
+                        })
+                    );
+                },
+                'operation coverage'
+            );
+        }
+
+        function populateParameterCoverage() {
+            const container = document.querySelector('#parametercoverage .card-content');
+            const data = jsonData['ParameterCoverage'];
+
+            if (checkEmptyData(data)) {
+                addNoDataAvailableDiv(container, 'parameter coverage');
+                return;
+            }
+
+            const parsedData = parseParameterCoverage(data);
+            const operations = Object.keys(parsedData).sort();
+            const accordion = document.createElement('div');
+            accordion.className = 'parameter-accordion';
+            accordion.style.margin = '10px';
+
+            operations.forEach(operation => {
+                const params = parsedData[operation];
+                if (!params || params.length === 0) return;
+
+                const [method, path] = operation.split(' ');
+                const operationTitle = createHttpMethodDisplay(method, path);
+                const paramCount = `${params.length} parameter${params.length > 1 ? 's' : ''}`;
+                const { section, content } = createAccordionSection(operationTitle, paramCount);
+
+                const table = createStyledTable(['Parameter', 'Doc', 'Test']);
+                const tbody = document.createElement('tbody');
+
+                params.forEach(param => {
+                    const row = document.createElement('tr');
+                    row.style.borderBottom = '1px solid #eee';
+
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = param.name;
+                    nameCell.style.padding = '10px 12px';
+                    nameCell.style.fontFamily = 'monospace';
+
+                    row.appendChild(nameCell);
+                    row.appendChild(renderDocumentedIcon(param.isDocumented));
+                    row.appendChild(renderTestedIcon(param.isTested));
+
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(tbody);
+                content.appendChild(table);
+                accordion.appendChild(section);
+            });
+
+            container.appendChild(accordion);
+        }
+
+        function populateParameterValueCoverage() {
+            const container = document.querySelector('#parametervaluecoverage .card-content');
+            const data = jsonData['ParameterValueCoverage'];
+
+            if (checkEmptyData(data)) {
+                addNoDataAvailableDiv(container, 'parameter value coverage');
+                return;
+            }
+
+            const parsedData = parseParameterValueCoverage(data);
+            if (Object.keys(parsedData).length === 0) {
+                addNoDataAvailableDiv(container, 'parameter value coverage');
+                return;
+            }
+
+            const treeContainer = document.createElement('div');
+            treeContainer.className = 'param-value-tree';
+            treeContainer.style.margin = '10px';
+
+            Object.keys(parsedData).sort().forEach(operation => {
+                const [method, path] = operation.split(' ');
+                const operationTitle = createHttpMethodDisplay(method, path);
+                const params = Object.keys(parsedData[operation]);
+                const paramCount = `${params.length} parameter${params.length > 1 ? 's' : ''}`;
+                const { section, header, content: paramsContainer } = createAccordionSection(operationTitle, paramCount);
+
+                params.forEach(param => {
+                    const values = parsedData[operation][param].values;
+                    const documented = parsedData[operation][param].documented;
+                    const tested = parsedData[operation][param].tested;
+
+                    const paramItem = createParamItem(param, values.length);
+                    const valuesList = createValuesList(values, documented, tested);
+
+                    paramItem.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const visible = valuesList.style.display === 'block';
+                        valuesList.style.display = visible ? 'none' : 'block';
+                        paramItem.querySelector('span').style.transform = visible ? 'rotate(0deg)' : 'rotate(90deg)';
+                    });
+
+                    paramsContainer.appendChild(paramItem);
+                    paramsContainer.appendChild(valuesList);
+                });
+
+                treeContainer.appendChild(section);
+            });
+
+            container.appendChild(treeContainer);
+        }
+
+        function createParamItem(paramName, valueCount) {
+            const paramItem = document.createElement('div');
+            paramItem.className = 'param-item';
+            paramItem.style.cssText = `
+                padding: 12px 15px 12px 30px;
+                border-bottom: 1px solid #eee;
+                cursor: pointer;
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+            `;
+            paramItem.title = 'Click to view parameter values';
+
+            const paramInfoContainer = document.createElement('div');
+            paramInfoContainer.style.display = 'flex';
+            paramInfoContainer.style.alignItems = 'center';
+
+            const expandIcon = document.createElement('span');
+            expandIcon.innerHTML = '›';
+            expandIcon.style.cssText = 'position: absolute; left: 10px; transition: transform 0.2s;';
+            paramInfoContainer.appendChild(expandIcon);
+
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = paramName;
+            nameSpan.style.cssText = 'font-weight: bold; font-family: monospace;';
+            paramInfoContainer.appendChild(nameSpan);
+
+            paramItem.appendChild(paramInfoContainer);
+
+            const valueCountBadge = document.createElement('span');
+            valueCountBadge.textContent = `${valueCount} values`;
+            valueCountBadge.style.cssText = `
+                font-size: 0.9em;
+                color: #666;
+                background-color: #e0e0e0;
+                padding: 4px 8px;
+                border-radius: 12px;
+            `;
+            paramItem.appendChild(valueCountBadge);
+
+            return paramItem;
+        }
+
+        function createValuesList(values, documented, tested) {
+            const list = document.createElement('div');
+            list.className = 'values-list';
+            list.style.cssText = `
+                display: none;
+                padding: 10px 10px 10px 50px;
+                background-color: #f9f9f9;
+            `;
+
+            const table = createStyledTable(['Value', 'Doc', 'Test']);
+            const tbody = document.createElement('tbody');
+
+            values.forEach(value => {
+                const row = document.createElement('tr');
+
+                const valueCell = document.createElement('td');
+                valueCell.textContent = value;
+                valueCell.style.cssText = 'padding: 10px 12px; font-family: monospace;';
+                row.appendChild(valueCell);
+
+                row.appendChild(renderDocumentedIcon(documented.includes(value)));
+                row.appendChild(renderTestedIcon(tested.includes(value)));
+
+                tbody.appendChild(row);
+            });
+
+            table.appendChild(tbody);
+            list.appendChild(table);
+            return list;
+        }
+
+        function populatePathCoverage() {
+            const container = document.querySelector('#pathcoverage .card-content');
+            renderTableWithStatus(
+                container,
+                jsonData['PathCoverage'],
+                ['Path', 'Doc', 'Test'],
+                data => {
+                    const parsed = parsePathCoverage(data);
+                    return Object.fromEntries(
+                        Object.entries(parsed).map(([path, coverage]) => {
+                            const labelCell = document.createElement('td');
+                            labelCell.textContent = path;
+                            labelCell.style.padding = '10px 12px';
+                            labelCell.style.fontFamily = 'monospace';
+                            return [path, {
+                                labelCell,
+                                isDocumented: coverage.isDocumented,
+                                isTested: coverage.isTested
+                            }];
+                        })
+                    );
+                },
+                'path coverage'
+            );
+        }
+
+        function populateStatusCodeCoverage() {
+            const container = document.querySelector('#statuscodecoverage .card-content');
+            const data = jsonData['StatusCodeCoverage'];
+
+            if (checkEmptyData(data)) {
+                addNoDataAvailableDiv(container, 'status code coverage');
+                return;
+            }
+
+            const parsedData = parseStatusCodeCoverage(data);
+            const accordion = document.createElement('div');
+            accordion.className = 'status-code-accordion';
+            accordion.style.margin = '10px';
+
+            Object.keys(parsedData).sort().forEach(operation => {
+                const [method, path] = operation.split(' ');
+                const operationTitle = createHttpMethodDisplay(method, path);
+                const statusCodes = parsedData[operation];
+                const codeCount = `${Object.keys(statusCodes).length} status code${Object.keys(statusCodes).length > 1 ? 's' : ''}`;
+                const { section, content } = createAccordionSection(operationTitle, codeCount);
+
+                const grid = document.createElement('div');
+                grid.className = 'status-code-grid';
+                grid.style.cssText = 'display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px;';
+
+                const groupedCodes = {};
+                Object.keys(statusCodes).forEach(code => {
+                    const series = Math.floor(code / 100);
+                    groupedCodes[series] = groupedCodes[series] || [];
+                    groupedCodes[series].push(code);
+                });
+
+                Object.keys(groupedCodes).sort().forEach(series => {
+                    groupedCodes[series].sort().forEach(code => {
+                        const codeData = statusCodes[code];
+                        const item = document.createElement('div');
+                        item.className = 'status-code-item';
+                        item.style.cssText = `
+                            padding: 12px;
+                            border-radius: 8px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                            background-color: ${{
+                                1: '#e8f5e9', 2: '#e3f2fd', 3: '#fff8e1',
+                                4: '#ffebee', 5: '#fce4ec'
+                            }[series] || '#f5f5f5'};
+                        `;
+
+                        const codeNumber = document.createElement('div');
+                        codeNumber.textContent = code;
+                        codeNumber.style.cssText = 'font-size: 1.2em; font-weight: bold;';
+                        item.appendChild(codeNumber);
+
+                        const indicators = document.createElement('div');
+                        indicators.style.cssText = 'display: flex; gap: 10px; margin-top: 8px;';
+
+                        const docIcon = document.createElement('span');
+                        docIcon.innerHTML = codeData.isDocumented ? icons.documented : icons.notDocumented;
+                        docIcon.style.color = codeData.isDocumented ? '#2e7d32' : '#d32f2f';
+
+                        const testIcon = document.createElement('span');
+                        testIcon.innerHTML = codeData.isTested ? icons.tested : icons.notTested;
+                        testIcon.style.color = codeData.isTested ? '#2e7d32' : '#d32f2f';
+
+                        indicators.appendChild(docIcon);
+                        indicators.appendChild(testIcon);
+
+                        item.appendChild(indicators);
+                        grid.appendChild(item);
+                    });
+                });
+
+                content.appendChild(grid);
+                accordion.appendChild(section);
+            });
+
+            container.appendChild(accordion);
+        }
+
+        /* ------------- MAIN ------------- */
+        main()
+
+        function main() {
+            addDetailedCoverageStats();
+            populateCoverageCards();
+        }
+
+        function populateCoverageCards() {
+            populateOperationCoverage();
+            populateParameterCoverage();
+            populateParameterValueCoverage();
+            populatePathCoverage();
+            populateStatusCodeCoverage();
+        }
+    </script>
+</body>
+
+</html>
