@@ -164,8 +164,14 @@ public class RequestManager {
         // By default, accept application/json. If differently defined (in the specification) it will be overridden
         requestBuilder.header("Accept", "application/json");
 
-        operation.getHeaderParameters().forEach(p ->
-                requestBuilder.header(p.getName().toString(), p.getValueAsFormattedString()));
+        operation.getHeaderParameters().forEach(p -> {
+            String value = p.getValueAsFormattedString();
+            if (value != null) {
+                requestBuilder.header(p.getName().toString(), value);
+            } else {
+                logger.debug("Skipping header parameter '" + p.getName() + "' with null value");
+            }
+        });
 
         // Apply authorization
         if (authenticationInfo != null) {
