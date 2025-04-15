@@ -165,13 +165,13 @@ public class RequestManager {
         requestBuilder.header("Accept", "application/json");
 
         operation.getHeaderParameters().forEach(p -> {
-            String value = p.getValueAsFormattedString();
-            if (value != null) {
-                requestBuilder.header(p.getName().toString(), value);
-            } else {
-                logger.debug("Skipping header parameter '" + p.getName() + "' with null value");
+            try {
+                requestBuilder.header(p.getName().toString(), p.getValueAsFormattedString());
+            } catch (Exception e) {
+                logger.warn("Skipping header parameter " + p.getName() + ", reason: " + e.getMessage());
             }
         });
+
 
         // Apply authorization
         if (authenticationInfo != null) {
