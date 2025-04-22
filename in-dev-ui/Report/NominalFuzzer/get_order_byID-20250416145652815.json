@@ -1,0 +1,28 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "get_order_byID-20250416145652815",
+  "testInteractions": [
+    {
+      "requestMethod": "GET",
+      "requestURL": "http://localhost:8888/workshop/api/shop/orders/1",
+      "requestHeaders": "Accept: application/json\n",
+      "requestSentAt": "Apr 16, 2025, 2:56:52 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 200
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:56:53 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nAllow: GET, POST, PUT, HEAD, OPTIONS\nVary: origin, Cookie\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nReferrer-Policy: same-origin\nCross-Origin-Opener-Policy: same-origin\n",
+      "responseBody": "{\"order\":{\"id\":1,\"user\":{\"email\":\"adam007@example.com\",\"number\":\"9876895423\"},\"product\":{\"id\":1,\"name\":\"Seat\",\"price\":\"10.00\",\"image_url\":\"images/seat.svg\"},\"quantity\":2,\"status\":\"delivered\",\"transaction_id\":\"60dd20af-8af4-44ef-b2f3-2956b8fdf865\",\"created_on\":\"2025-04-15T14:26:37.071247\"},\"payment\":{\"transaction_id\":\"60dd20af-8af4-44ef-b2f3-2956b8fdf865\",\"order_id\":1,\"amount\":20,\"paid_on\":\"2025-04-15T14:26:37.071247\",\"card_number\":\"XXXXXXXXXXXX9541\",\"card_owner_name\":\"Adam\",\"card_type\":\"Visa\",\"card_expiry\":\"12/2028\",\"currency\":\"USD\"}}",
+      "responseReceivedAt": "Apr 16, 2025, 2:56:53 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:56:52 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "PASS",
+      "message": "The test sequence was executed successfully."
+    }
+  },
+  "tags": []
+}

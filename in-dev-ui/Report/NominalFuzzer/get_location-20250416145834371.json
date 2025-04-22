@@ -1,0 +1,28 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "get_location-20250416145834371",
+  "testInteractions": [
+    {
+      "requestMethod": "GET",
+      "requestURL": "http://localhost:8888/identity/api/v2/vehicle/9792d1b4-575d-4c4e-85bc-c810d6cd6904/location",
+      "requestHeaders": "Accept: application/json\n",
+      "requestSentAt": "Apr 16, 2025, 2:58:34 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 401
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:58:34 GMT\nContent-Type: application/json;charset\u003dISO-8859-1\nContent-Length: 49\nConnection: keep-alive\nVary: Origin\nVary: Access-Control-Request-Method\nVary: Access-Control-Request-Headers\nX-Content-Type-Options: nosniff\nX-XSS-Protection: 0\nCache-Control: no-cache, no-store, max-age\u003d0, must-revalidate\nPragma: no-cache\nExpires: 0\nX-Frame-Options: DENY\n",
+      "responseBody": "CRAPIResponse(message\u003dInvalid Token, status\u003d401)\n",
+      "responseReceivedAt": "Apr 16, 2025, 2:58:34 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:58:34 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "UNKNOWN",
+      "message": "The obtained status code is not informative enough to determine the outcome of the test sequence."
+    }
+  },
+  "tags": []
+}

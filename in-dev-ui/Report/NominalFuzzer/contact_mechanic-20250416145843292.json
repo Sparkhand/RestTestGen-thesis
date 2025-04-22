@@ -1,0 +1,29 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "contact_mechanic-20250416145843292",
+  "testInteractions": [
+    {
+      "requestMethod": "POST",
+      "requestURL": "http://localhost:8888/workshop/api/merchant/contact_mechanic",
+      "requestHeaders": "Accept: application/json\n",
+      "requestBody": "{\"number_of_repeats\": -6.8355503E37, \"mechanic_api\": \"wrl-gtpED_3VAp37dDV9zPBcWGwKiamO6HD8NJQpN2JhivKesKiuyUIuj2k6Vw\u003d\u003d\", \"vin\": \"\", \"repeat_request_if_failed\": true, \"problem_details\": \"carpet-smooth\", \"mechanic_code\": \"steered\"}",
+      "requestSentAt": "Apr 16, 2025, 2:58:43 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 401
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:58:43 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nAllow: POST, OPTIONS\nVary: origin, Cookie\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nReferrer-Policy: same-origin\nCross-Origin-Opener-Policy: same-origin\n",
+      "responseBody": "{\"message\":\"JWT Token required!\"}",
+      "responseReceivedAt": "Apr 16, 2025, 2:58:43 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:58:43 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "UNKNOWN",
+      "message": "The obtained status code is not informative enough to determine the outcome of the test sequence."
+    }
+  },
+  "tags": []
+}

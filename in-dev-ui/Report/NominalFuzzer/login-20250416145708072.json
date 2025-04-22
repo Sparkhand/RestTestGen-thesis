@@ -1,0 +1,29 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "login-20250416145708072",
+  "testInteractions": [
+    {
+      "requestMethod": "POST",
+      "requestURL": "http://localhost:8888/identity/api/auth/login",
+      "requestHeaders": "Accept: application/json\n",
+      "requestBody": "{\"email\": \"test@example.com\", \"password\": \"Test!123\"}",
+      "requestSentAt": "Apr 16, 2025, 2:57:11 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 200
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:57:11 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nVary: Origin\nVary: Access-Control-Request-Method\nVary: Access-Control-Request-Headers\nX-Content-Type-Options: nosniff\nX-XSS-Protection: 0\nCache-Control: no-cache, no-store, max-age\u003d0, must-revalidate\nPragma: no-cache\nExpires: 0\nX-Frame-Options: DENY\n",
+      "responseBody": "{\"token\":\"eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ0ODA4MjMxLCJleHAiOjE3NDU0MTMwMzEsInJvbGUiOiJ1c2VyIn0.mra8ZQeHd3XBVCaQ-19v1xhTZMrVlTGJEAlW09KQi42TRX080uNaE5emjZtXa6fhIynd2SlO8JreKvGf_QCtOFzt0q6tLiAFjP0EU-ZT0FlD5e9Uhz4-b7V_YuyP7Az2G0c1w06ts0o0ijqA8IoUKvw6Z4Ny1y4zbQ22DLPbdrdSvlFe5PWXArlBRUs6Ss07kin8xOPDIev8zcxsljoDEyp87EKZfW-DBMLlKZSaFyDkKa2QR80RyaoQhPCNdQk3dxdVXysCV5jU4t9ggKaLY_pCjGgBOMKEDjEPWGcX9FFvmcz5WIEyzTJhhbjYn7vl3lpntGBDPFeyzW5aqtAsvg\",\"type\":\"Bearer\",\"message\":\"Login successful\",\"mfaRequired\":false}",
+      "responseReceivedAt": "Apr 16, 2025, 2:57:11 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:57:08 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "PASS",
+      "message": "The test sequence was executed successfully."
+    }
+  },
+  "tags": []
+}

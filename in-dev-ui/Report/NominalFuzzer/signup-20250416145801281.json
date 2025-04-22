@@ -1,0 +1,29 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "signup-20250416145801281",
+  "testInteractions": [
+    {
+      "requestMethod": "POST",
+      "requestURL": "http://localhost:8888/identity/api/auth/signup",
+      "requestHeaders": "Accept: application/json\n",
+      "requestBody": "{\"email\": \"Cristobal.Weissnat@example.com\", \"name\": \"Cristobal.Weissnat\", \"number\": \"SE26 8113 8686 1629 0011 1992\", \"password\": \"5hmb0gvyC__hVQg\"}",
+      "requestSentAt": "Apr 16, 2025, 2:58:01 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 400
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:58:01 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nVary: Origin\nVary: Access-Control-Request-Method\nVary: Access-Control-Request-Headers\nX-Content-Type-Options: nosniff\nX-XSS-Protection: 0\nCache-Control: no-cache, no-store, max-age\u003d0, must-revalidate\nPragma: no-cache\nExpires: 0\nX-Frame-Options: DENY\n",
+      "responseBody": "{\"message\":\"Validation failed\",\"details\":\"org.springframework.validation.BeanPropertyBindingResult: 1 errors\\nField error in object \u0027signUpForm\u0027 on field \u0027number\u0027: rejected value [SE26 8113 8686 1629 0011 1992]; codes [Size.signUpForm.number,Size.number,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [signUpForm.number,number]; arguments []; default message [number],15,0]; default message [size must be between 0 and 15]\"}",
+      "responseReceivedAt": "Apr 16, 2025, 2:58:01 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:58:01 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "UNKNOWN",
+      "message": "The obtained status code is not informative enough to determine the outcome of the test sequence."
+    }
+  },
+  "tags": []
+}

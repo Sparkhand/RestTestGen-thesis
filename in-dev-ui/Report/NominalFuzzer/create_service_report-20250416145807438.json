@@ -1,0 +1,28 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "create_service_report-20250416145807438",
+  "testInteractions": [
+    {
+      "requestMethod": "GET",
+      "requestURL": "http://localhost:8888/workshop/api/mechanic/receive_report?mechanic_code\u003dcalciphyre\u0026problem_details\u003dbelfry\u0026vin\u003d",
+      "requestHeaders": "Accept: application/json\n",
+      "requestSentAt": "Apr 16, 2025, 2:58:09 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 400
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:58:09 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nAllow: GET, HEAD, OPTIONS\nVary: origin, Cookie\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nReferrer-Policy: same-origin\nCross-Origin-Opener-Policy: same-origin\n",
+      "responseBody": "{\"vin\":[\"This field may not be blank.\"]}",
+      "responseReceivedAt": "Apr 16, 2025, 2:58:09 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:58:07 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "UNKNOWN",
+      "message": "The obtained status code is not informative enough to determine the outcome of the test sequence."
+    }
+  },
+  "tags": []
+}

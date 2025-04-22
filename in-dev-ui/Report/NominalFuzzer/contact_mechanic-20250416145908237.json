@@ -1,0 +1,29 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "contact_mechanic-20250416145908237",
+  "testInteractions": [
+    {
+      "requestMethod": "POST",
+      "requestURL": "http://localhost:8888/workshop/api/merchant/contact_mechanic",
+      "requestHeaders": "Accept: application/json\n",
+      "requestBody": "{\"number_of_repeats\": 110.22744, \"mechanic_api\": \"F\", \"vin\": \"2007/04/27\", \"repeat_request_if_failed\": false, \"problem_details\": \"10:30:18\", \"mechanic_code\": \"SIPC AFL\"}",
+      "requestSentAt": "Apr 16, 2025, 2:59:08 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 401
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:59:08 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nAllow: POST, OPTIONS\nVary: origin, Cookie\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nReferrer-Policy: same-origin\nCross-Origin-Opener-Policy: same-origin\n",
+      "responseBody": "{\"message\":\"JWT Token required!\"}",
+      "responseReceivedAt": "Apr 16, 2025, 2:59:08 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:59:08 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "UNKNOWN",
+      "message": "The obtained status code is not informative enough to determine the outcome of the test sequence."
+    }
+  },
+  "tags": []
+}

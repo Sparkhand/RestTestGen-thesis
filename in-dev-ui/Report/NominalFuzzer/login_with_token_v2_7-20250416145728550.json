@@ -1,0 +1,29 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "login_with_token_v2_7-20250416145728550",
+  "testInteractions": [
+    {
+      "requestMethod": "POST",
+      "requestURL": "http://localhost:8888/identity/api/auth/v2.7/user/login-with-token",
+      "requestHeaders": "Accept: application/json\n",
+      "requestBody": "{\"email\": \"adam007@example.com\", \"token\": \"phrenogrady M\"}",
+      "requestSentAt": "Apr 16, 2025, 2:57:28 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 500
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:57:28 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nVary: Origin\nVary: Access-Control-Request-Method\nVary: Access-Control-Request-Headers\nX-Content-Type-Options: nosniff\nX-XSS-Protection: 0\nCache-Control: no-cache, no-store, max-age\u003d0, must-revalidate\nPragma: no-cache\nExpires: 0\nX-Frame-Options: DENY\n",
+      "responseBody": "{\"token\":null,\"type\":\"\",\"message\":\"Invalid Credentials\",\"mfaRequired\":false}",
+      "responseReceivedAt": "Apr 16, 2025, 2:57:28 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:57:28 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "FAIL",
+      "message": "A server error occurred during the execution of the sequence."
+    }
+  },
+  "tags": []
+}

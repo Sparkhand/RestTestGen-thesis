@@ -1,0 +1,31 @@
+{
+  "generator": "ErrorFuzzer",
+  "name": "login-20250416145917348",
+  "testInteractions": [
+    {
+      "requestMethod": "POST",
+      "requestURL": "http://localhost:8888/identity/api/auth/login",
+      "requestHeaders": "Accept: application/json\n",
+      "requestBody": "{\"password\": \"Test!123\"}",
+      "requestSentAt": "Apr 16, 2025, 2:59:17 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 400
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:59:17 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nVary: Origin\nVary: Access-Control-Request-Method\nVary: Access-Control-Request-Headers\nX-Content-Type-Options: nosniff\nX-XSS-Protection: 0\nCache-Control: no-cache, no-store, max-age\u003d0, must-revalidate\nPragma: no-cache\nExpires: 0\nX-Frame-Options: DENY\n",
+      "responseBody": "{\"message\":\"Validation failed\",\"details\":\"org.springframework.validation.BeanPropertyBindingResult: 1 errors\\nField error in object \u0027loginForm\u0027 on field \u0027email\u0027: rejected value [null]; codes [NotBlank.loginForm.email,NotBlank.email,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [loginForm.email,email]; arguments []; default message [email]]; default message [must not be blank]\"}",
+      "responseReceivedAt": "Apr 16, 2025, 2:59:17 PM",
+      "tags": [
+        "mutated"
+      ]
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:59:17 PM",
+  "testResults": {
+    "ErrorStatusCodeOracle": {
+      "result": "PASS",
+      "message": "The erroneous test sequence was rejected by the server."
+    }
+  },
+  "tags": []
+}

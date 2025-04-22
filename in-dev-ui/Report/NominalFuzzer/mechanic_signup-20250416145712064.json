@@ -1,0 +1,29 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "mechanic_signup-20250416145712064",
+  "testInteractions": [
+    {
+      "requestMethod": "POST",
+      "requestURL": "http://localhost:8888/workshop/api/mechanic/signup",
+      "requestHeaders": "Accept: application/json\n",
+      "requestBody": "{\"name\": \"+196282010624824\", \"password\": \"00054337291\", \"mechanic_code\": \"20\"}",
+      "requestSentAt": "Apr 16, 2025, 2:57:13 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 400
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:57:13 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nAllow: POST, OPTIONS\nVary: origin, Cookie\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nReferrer-Policy: same-origin\nCross-Origin-Opener-Policy: same-origin\n",
+      "responseBody": "{\"email\":[\"This field is required.\"],\"number\":[\"This field is required.\"]}",
+      "responseReceivedAt": "Apr 16, 2025, 2:57:13 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:57:12 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "UNKNOWN",
+      "message": "The obtained status code is not informative enough to determine the outcome of the test sequence."
+    }
+  },
+  "tags": []
+}

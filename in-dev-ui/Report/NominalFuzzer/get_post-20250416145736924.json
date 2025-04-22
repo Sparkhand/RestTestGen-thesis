@@ -1,0 +1,28 @@
+{
+  "generator": "NominalFuzzer",
+  "name": "get_post-20250416145736924",
+  "testInteractions": [
+    {
+      "requestMethod": "GET",
+      "requestURL": "http://localhost:8888/community/api/v2/community/posts/",
+      "requestHeaders": "Accept: application/json\n",
+      "requestSentAt": "Apr 16, 2025, 2:57:37 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 404
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:57:37 GMT\nContent-Type: text/plain; charset\u003dutf-8\nContent-Length: 19\nConnection: keep-alive\nX-Content-Type-Options: nosniff\n",
+      "responseBody": "404 page not found\n",
+      "responseReceivedAt": "Apr 16, 2025, 2:57:37 PM",
+      "tags": []
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:57:36 PM",
+  "testResults": {
+    "StatusCodeOracle": {
+      "result": "UNKNOWN",
+      "message": "The obtained status code is not informative enough to determine the outcome of the test sequence."
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,30 @@
+{
+  "generator": "ErrorFuzzer",
+  "name": "get_workshop_qr_code-20250416145920207",
+  "testInteractions": [
+    {
+      "requestMethod": "GET",
+      "requestURL": "http://localhost:8888/workshop/api/shop/return_qr_code",
+      "requestHeaders": "Accept: -5632117818170904576\n",
+      "requestSentAt": "Apr 16, 2025, 2:59:20 PM",
+      "responseProtocol": "http/1.1",
+      "responseStatusCode": {
+        "code": 406
+      },
+      "responseHeaders": "Server: openresty/1.25.3.1\nDate: Wed, 16 Apr 2025 12:59:20 GMT\nContent-Type: application/json\nTransfer-Encoding: chunked\nConnection: keep-alive\nAllow: GET, HEAD, OPTIONS\nVary: origin\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nReferrer-Policy: same-origin\nCross-Origin-Opener-Policy: same-origin\n",
+      "responseBody": "{\"detail\":\"Could not satisfy the request Accept header.\"}",
+      "responseReceivedAt": "Apr 16, 2025, 2:59:20 PM",
+      "tags": [
+        "mutated"
+      ]
+    }
+  ],
+  "generatedAt": "Apr 16, 2025, 2:59:20 PM",
+  "testResults": {
+    "ErrorStatusCodeOracle": {
+      "result": "PASS",
+      "message": "The erroneous test sequence was rejected by the server."
+    }
+  },
+  "tags": []
+}
