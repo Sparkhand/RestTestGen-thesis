@@ -25,8 +25,12 @@ public class CoverageReportWriter {
         return "CoverageReports";
     }
 
+    public String getReportResourcesPath() {
+        return "src/main/resources/report-resources/";
+    }
+
     public String getCoverageReportTemplatePath() {
-        return "coverage-report-template.html";
+        return getReportResourcesPath() + "coverage-report-template.html";
     }
 
     private String getOutputPath(){
