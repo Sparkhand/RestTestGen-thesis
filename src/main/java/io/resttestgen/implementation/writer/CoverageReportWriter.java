@@ -29,9 +29,7 @@ public class CoverageReportWriter {
         return "src/main/resources/report-resources/";
     }
 
-    public String getCoverageReportTemplatePath() {
-        return getReportResourcesPath() + "coverage-report-template.html";
-    }
+    public String getTargetFile() { return getReportResourcesPath() + "js/" + "constants.js"; }
 
     private String getOutputPath(){
         return configuration.getOutputPath() + configuration.getTestingSessionName() + "/" + getOutputFormatName() + "/";
@@ -50,7 +48,7 @@ public class CoverageReportWriter {
         JsonObject jsonRoot = new JsonObject();
 
         // Read the HTML template file
-        File templateFile = new File(getCoverageReportTemplatePath());
+        File templateFile = new File(getTargetFile());
         StringBuilder templateContent = new StringBuilder();
         try (java.util.Scanner scanner = new java.util.Scanner(templateFile)) {
             while (scanner.hasNextLine()) {

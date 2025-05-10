@@ -69,5 +69,14 @@ public class OperationCoverage extends Coverage {
         return report;
     }
 
+    public Set<Operation> getDocumentedOperations() {
+        return new HashSet<>(operationsDocumentedTested);
+    }
 
+    public Set<Operation> getTestedOperations() {
+        HashSet<Operation> allOperations = new HashSet<>();
+        allOperations.addAll(operationsDocumentedTested);
+        allOperations.addAll(operationsNotDocumentedTested);
+        return allOperations;
+    }
 }

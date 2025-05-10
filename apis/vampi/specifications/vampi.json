@@ -10,15 +10,52 @@
       "url": "http://localhost:5000"
     }
   ],
-  "components": {},
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "x-bearerInfoFunc": "models.user_model.User.decode_auth_token"
+      }
+    }
+  },
   "paths": {
+    "/createdb": {
+      "get": {
+        "tags": [
+          "db-init"
+        ],
+        "summary": "Creates and populates the database with dummy data",
+        "description": "Creates and populates the database with dummy data",
+        "operationId": "api_views.main.populate_db",
+        "responses": {
+          "200": {
+            "description": "Creates and populates the database with dummy data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Database populated."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/": {
       "get": {
         "tags": [
           "home"
         ],
         "summary": "VAmPI home",
-        "description": "VAmPI is a vulnerable on purpose API. It was created in order to evaluate the efficiency of third party tools in identifying vulnerabilities in APIs but it can alsssho be used in learning/teaching purposes.",
+        "description": "VAmPI is a vulnerable on purpose API. It was created in order to evaluate the efficiency of third party tools in identifying vulnerabilities in APIs but it can also be used in learning/teaching purposes.",
         "operationId": "api_views.main.basic",
         "responses": {
           "200": {
@@ -29,10 +66,16 @@
                   "type": "object",
                   "properties": {
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "VAmPI the Vulnerable API"
                     },
-                    "Help": {
-                      "type": "string"
+                    "help": {
+                      "type": "string",
+                      "example": "VAmPI is a vulnerable on purpose API. It was created in order to evaluate the efficiency of third party tools in identifying vulnerabilities in APIs but it can also be used in learning/teaching purposes."
+                    },
+                    "vulnerable": {
+                      "type": "number",
+                      "example": 1
                     }
                   }
                 }
@@ -50,24 +93,28 @@
         "summary": "Retrieves all users",
         "description": "Displays all users with basic information",
         "operationId": "api_views.users.get_all_users",
-        "x-crudOperationSemantics": "read-multi",
-        "x-crudResourceType": "user",
         "responses": {
           "200": {
             "description": "See basic info about all users",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "email": {
-                        "type": "string"
-                      },
-                      "username": {
-                        "type": "string",
-                        "x-crudResourceIdentifier": true
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "type": "string",
+                            "example": "mail1@mail.com"
+                          },
+                          "username": {
+                            "type": "string",
+                            "example": "name1"
+                          }
+                        }
                       }
                     }
                   }
@@ -86,30 +133,36 @@
         "summary": "Retrieves all details for all users",
         "description": "Displays all details for all users",
         "operationId": "api_views.users.debug",
-        "x-crudOperationSemantics": "read-multi",
-        "x-crudResourceType": "user",
         "responses": {
           "200": {
             "description": "See all details of the users",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "admin": {
-                        "type": "boolean"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "password": {
-                        "type": "string"
-                      },
-                      "username": {
-                        "type": "string",
-                        "x-crudResourceIdentifier": true
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "admin": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "mail1@mail.com"
+                          },
+                          "password": {
+                            "type": "string",
+                            "example": "pass1"
+                          },
+                          "username": {
+                            "type": "string",
+                            "example": "name1"
+                          }
+                        }
                       }
                     }
                   }
@@ -128,8 +181,6 @@
         "summary": "Register new user",
         "description": "Register new user",
         "operationId": "api_views.users.register_user",
-        "x-crudOperationSemantics": "create",
-        "x-crudResourceType": "user",
         "requestBody": {
           "description": "Username of the user",
           "content": {
@@ -139,18 +190,15 @@
                 "properties": {
                   "username": {
                     "type": "string",
-                    "required": true,
-                    "minLength": 1,
-                    "description": "My description",
-                    "x-crudResourceIdentifier": true
+                    "example": "name1"
                   },
                   "password": {
-                    "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "example": "pass1"
                   },
                   "email": {
-                    "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "example": "user@tempmail.com"
                   }
                 }
               }
@@ -167,14 +215,16 @@
                   "type": "object",
                   "properties": {
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Successfully registered. Login to receive an auth token."
                     },
                     "status": {
                       "type": "string",
                       "enum": [
                         "success",
                         "fail"
-                      ]
+                      ],
+                      "example": "success"
                     }
                   }
                 }
@@ -205,11 +255,11 @@
                 "properties": {
                   "username": {
                     "type": "string",
-                    "required": true
+                    "example": "name1"
                   },
                   "password": {
                     "type": "string",
-                    "required": true
+                    "example": "pass1"
                   }
                 }
               }
@@ -226,17 +276,20 @@
                   "type": "object",
                   "properties": {
                     "auth_token": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Successfully logged in."
                     },
                     "status": {
                       "type": "string",
                       "enum": [
                         "success",
                         "fail"
-                      ]
+                      ],
+                      "example": "success"
                     }
                   }
                 }
@@ -254,10 +307,85 @@
                       "type": "string",
                       "enum": [
                         "fail"
-                      ]
+                      ],
+                      "example": "fail"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Password is not correct for the given username."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Retrieves currently logged in user",
+        "description": "Displays information about the currently authenticated user",
+        "operationId": "api_views.users.me",
+        "responses": {
+          "200": {
+            "description": "Display current user info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "admin": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "mail1@mail.com"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "name1"
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access due to expired, invalid, or missing token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "fail"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Signature expired. Please log in again.",
+                        "Invalid token. Please log in again."
+                      ]
                     }
                   }
                 }
@@ -275,17 +403,15 @@
         "summary": "Retrieves user by username",
         "description": "Displays user by username",
         "operationId": "api_views.users.get_by_username",
-        "x-crudOperationSemantics": "read",
-        "x-crudResourceType": "user",
         "parameters": [
           {
             "name": "username",
             "in": "path",
             "description": "retrieve username data",
-            "x-crudResourceIdentifier": true,
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "name1"
             }
           }
         ],
@@ -299,10 +425,11 @@
                   "properties": {
                     "username": {
                       "type": "string",
-                      "x--crudResourceIdentifier": true
+                      "example": "name1"
                     },
                     "email": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "mail1@mail.com"
                     }
                   }
                 }
@@ -320,10 +447,12 @@
                       "type": "string",
                       "enum": [
                         "fail"
-                      ]
+                      ],
+                      "example": "fail"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "User not found"
                     }
                   }
                 }
@@ -333,23 +462,26 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "users"
         ],
         "summary": "Deletes user by username (Only Admins)",
         "description": "Deletes user by username (Only Admins)",
         "operationId": "api_views.users.delete_user",
-        "x-crudOperationSemantics": "delete",
-        "x-crudResourceType": "user",
         "parameters": [
           {
             "name": "username",
             "in": "path",
             "description": "Delete username",
-            "x-crudResourceIdentifier": true,
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "name1"
             }
           }
         ],
@@ -362,14 +494,16 @@
                   "type": "object",
                   "properties": {
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "User deleted."
                     },
                     "status": {
                       "type": "string",
                       "enum": [
                         "success",
                         "fail"
-                      ]
+                      ],
+                      "example": "success"
                     }
                   }
                 }
@@ -385,12 +519,14 @@
                   "properties": {
                     "status": {
                       "type": "string",
+                      "example": "fail",
                       "enum": [
                         "fail"
                       ]
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Only Admins may delete users!"
                     }
                   }
                 }
@@ -399,30 +535,52 @@
           },
           "404": {
             "description": "User not found",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "fail",
+                      "enum": [
+                        "fail"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User not found!"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/users/v1/{username}/email": {
       "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "users"
         ],
         "summary": "Update users email",
         "description": "Update a single users email",
         "operationId": "api_views.users.update_email",
-        "x-crudOperationSemantics": "update",
-        "x-crudResourceType": "user",
         "parameters": [
           {
             "name": "username",
             "in": "path",
             "description": "username to update email",
-            "x-crudResourceIdentifier": true,
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "name1"
             }
           }
         ],
@@ -435,7 +593,7 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "required": true
+                    "example": "mail3@mail.com"
                   }
                 }
               }
@@ -450,7 +608,26 @@
           },
           "400": {
             "description": "Invalid request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "fail"
+                      ],
+                      "example": "fail"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Please Provide a valid email address."
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "User not authorized",
@@ -463,10 +640,12 @@
                       "type": "string",
                       "enum": [
                         "fail"
-                      ]
+                      ],
+                      "example": "fail"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Invalid token. Please log in again."
                     }
                   }
                 }
@@ -478,23 +657,26 @@
     },
     "/users/v1/{username}/password": {
       "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "users"
         ],
         "summary": "Update users password",
         "description": "Update users password",
         "operationId": "api_views.users.update_password",
-        "x-crudOperationSemantics": "update",
-        "x-crudResourceType": "user",
         "parameters": [
           {
             "name": "username",
             "in": "path",
             "description": "username to update password",
-            "x-crudResourceIdentifier": true,
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "name1"
             }
           }
         ],
@@ -507,7 +689,7 @@
                 "properties": {
                   "password": {
                     "type": "string",
-                    "required": true
+                    "example": "pass4"
                   }
                 }
               }
@@ -517,12 +699,31 @@
         },
         "responses": {
           "204": {
-            "description": "Sucessfully updated users password",
+            "description": "Successfully updated users password",
             "content": {}
           },
           "400": {
             "description": "Invalid request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "fail"
+                      ],
+                      "example": "fail"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Malformed Data"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "User not authorized",
@@ -535,10 +736,12 @@
                       "type": "string",
                       "enum": [
                         "fail"
-                      ]
+                      ],
+                      "example": "fail"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Invalid token. Please log in again."
                     }
                   }
                 }
@@ -556,8 +759,6 @@
         "summary": "Retrieves all books",
         "description": "Retrieves all books",
         "operationId": "api_views.books.get_all_books",
-        "x-crudOperationSemantics": "read-multi",
-        "x-crudResourceType": "book",
         "responses": {
           "200": {
             "description": "See all books",
@@ -572,8 +773,7 @@
                         "type": "object",
                         "properties": {
                           "book_title": {
-                            "type": "string",
-                            "x-crudResourceIdentifier": true
+                            "type": "string"
                           },
                           "user": {
                             "type": "string"
@@ -582,6 +782,22 @@
                       }
                     }
                   }
+                },
+                "example": {
+                  "Books": [
+                    {
+                      "book_title": "bookTitle77",
+                      "user": "name1"
+                    },
+                    {
+                      "book_title": "bookTitle85",
+                      "user": "name2"
+                    },
+                    {
+                      "book_title": "bookTitle47",
+                      "user": "admin"
+                    }
+                  ]
                 }
               }
             }
@@ -589,14 +805,17 @@
         }
       },
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "books"
         ],
         "summary": "Add new book",
         "description": "Add new book",
         "operationId": "api_views.books.add_new_book",
-        "x-crudOperationSemantics": "create",
-        "x-crudResourceType": "book",
         "requestBody": {
           "description": "Add new book with title and secret content only available to the user who added it.",
           "content": {
@@ -606,12 +825,11 @@
                 "properties": {
                   "book_title": {
                     "type": "string",
-                    "required": true,
-                    "x-crudResourceIdentifier": true
+                    "example": "book99"
                   },
                   "secret": {
-                    "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "example": "pass1secret"
                   }
                 }
               }
@@ -621,21 +839,23 @@
         },
         "responses": {
           "200": {
-            "description": "Sucessfully added a book",
+            "description": "Successfully added a book",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Book has been added."
                     },
                     "status": {
                       "type": "string",
                       "enum": [
                         "success",
                         "fail"
-                      ]
+                      ],
+                      "example": "success"
                     }
                   }
                 }
@@ -644,7 +864,26 @@
           },
           "400": {
             "description": "Invalid request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "fail"
+                      ],
+                      "example": "fail"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Book Already exists!"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "User not authorized",
@@ -657,10 +896,12 @@
                       "type": "string",
                       "enum": [
                         "fail"
-                      ]
+                      ],
+                      "example": "fail"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Invalid token. Please log in again."
                     }
                   }
                 }
@@ -672,23 +913,26 @@
     },
     "/books/v1/{book_title}": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "books"
         ],
         "summary": "Retrieves book by title along with secret",
         "description": "Retrieves book by title along with secret. Only the owner may retrieve it",
         "operationId": "api_views.books.get_by_title",
-        "x-crudOperationSemantics": "read",
-        "x-crudResourceType": "book",
         "parameters": [
           {
             "name": "book_title",
             "in": "path",
             "description": "retrieve book data",
-            "x-crudResourceIdentifier": true,
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "bookTitle77"
             }
           }
         ],
@@ -698,17 +942,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "book_title": {
-                      "type": "string",
-                      "x-crudResourceIdentifier": true
-                    },
-                    "owner": {
-                      "type": "string"
-                    },
-                    "secret": {
-                      "type": "string"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "book_title": {
+                        "type": "string",
+                        "example": "bookTitle77"
+                      },
+                      "owner": {
+                        "type": "string",
+                        "example": "name1"
+                      },
+                      "secret": {
+                        "type": "string",
+                        "example": "secret for bookTitle77"
+                      }
                     }
                   }
                 }
@@ -726,10 +975,12 @@
                       "type": "string",
                       "enum": [
                         "fail"
-                      ]
+                      ],
+                      "example": "fail"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Invalid token. Please log in again."
                     }
                   }
                 }
@@ -747,10 +998,12 @@
                       "type": "string",
                       "enum": [
                         "fail"
-                      ]
+                      ],
+                      "example": "fail"
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Book not found!"
                     }
                   }
                 }

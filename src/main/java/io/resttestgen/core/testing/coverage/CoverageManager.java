@@ -29,7 +29,6 @@ public class CoverageManager{
         }
     }
 
-
     public List<Coverage> getCoverages(){
         return this.listCoverages;
     }

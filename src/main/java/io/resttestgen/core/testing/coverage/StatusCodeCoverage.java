@@ -120,4 +120,15 @@ public class StatusCodeCoverage  extends Coverage {
         }
         return notTested;
     }
+
+    public HashMap<Operation, Set<HttpStatusCode>> getDocumentedStatusCodes() {
+        return new HashMap<>(statusCodeToTest);
+    }
+
+    public HashMap<Operation, Set<HttpStatusCode>> getTestedStatusCodes() {
+        HashMap<Operation, Set<HttpStatusCode>> testedStatusCodes = new HashMap<>();
+        testedStatusCodes.putAll(statusCodeDocumentedTested);
+        testedStatusCodes.putAll(statusCodeNotDocumentedTested);
+        return testedStatusCodes;
+    }
 }

@@ -69,5 +69,14 @@ public class PathCoverage extends Coverage {
         return report;
     }
 
+    public Set<String> getDocumentedPaths() {
+        return new HashSet<>(pathsToTest);
+    }
 
+    public Set<String> getTestedPaths() {
+        HashSet<String> testedPaths = new HashSet<>();
+        testedPaths.addAll(pathsDocumentedTested);
+        testedPaths.addAll(pathsNotDocumentedTested);
+        return testedPaths;
+    }
 }

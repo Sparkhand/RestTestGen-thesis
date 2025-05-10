@@ -173,4 +173,14 @@ public class ParameterValueCoverage extends Coverage {
         return notTested;
     }
 
+    public HashMap<Operation, HashMap<ParameterElementWrapper, Set<Object>>> getDocumentedValues() {
+        return new HashMap<>(valuesToTest);
+    }
+
+    public HashMap<Operation, HashMap<ParameterElementWrapper, Set<Object>>> getTestedValues() {
+        HashMap<Operation, HashMap<ParameterElementWrapper, Set<Object>>> testedValues = new HashMap<>();
+        testedValues.putAll(valuesDocumentedTested);
+        testedValues.putAll(valuesNotDocumentedTested);
+        return testedValues;
+    }
 }
